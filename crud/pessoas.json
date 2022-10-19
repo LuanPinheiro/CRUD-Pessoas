@@ -1,4 +1,6 @@
 [{
     "nome": "Luan",
-    "idade": 21
+    "idade": 21,
+    "cpf": "52998224725",
+    "estaTrabalhando": false
 }]
