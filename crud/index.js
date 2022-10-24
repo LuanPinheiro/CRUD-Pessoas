@@ -1,10 +1,7 @@
 const express = require("express");
-const jsonIniciador = require("./pessoas.json");
+const pessoas = require("./pessoas.json"); // Criando um array com todas as pessoas do CRUD, a partir de um JSON que contém um array com 1 elemento
 const server = express();
 server.use(express.json()); // faz com que o express entenda JSON
-
-// Criando um array com todas as pessoas do CRUD, a partir de um JSON que contém um array com 1 elemento
-const pessoas = JSON.parse(JSON.stringify(jsonIniciador));
 
 // Rota de listagem do array completo
 server.get("/pessoas", (req, res) => res.json(pessoas));
@@ -13,7 +10,7 @@ server.get("/pessoas", (req, res) => res.json(pessoas));
 server.post("/pessoas", checkPessoaValida, (req, res) => {
     const novaPessoa = req.body; // Buscando o novo elemento informado dentro do body da requisição
     pessoas.push(novaPessoa); // Adicionando um novo elemento no fim do array
-    return res.json(pessoas); // Retorna o array com um novo elemento
+    return res.status(201).json(pessoas); // Retorna o array com um novo elemento
 })
 
 // Rota de listagem de 1 elemento do array
@@ -32,23 +29,28 @@ server.put('/pessoas/:index', checkPessoaValida, checkPessoaInArray, (req, res) 
 server.delete('/pessoas/:index', checkPessoaInArray, (req, res) => {
     const indexPessoa = req.params.index; // Index que será alterado, com base no parâmetro da url
     pessoas.splice(indexPessoa, 1); // percorre o vetor até o index selecionado e deleta uma posição no array
-    return res.send("<h1>PESSOA APAGADA</h1>");
+    return res.send(`<h1>PESSOA NO INDICE ${req.params.index} APAGADA</h1>`);
 });
 
-function checkPessoaValida(req, res, next) { // Middleware que checa se as informações enviadas têm as chaves corretas
+// MIDDLEWARES
+// Checa se as informações enviadas têm as chaves corretas
+function checkPessoaValida(req, res, next) { 
     if (!req.body.nome || !req.body.idade || !req.body.cpf || !req.body.estaTrabalhando) {
         return res.status(400).json({ error: 'Dados Incompletos' });
     }
     return next(); // Continua na rota em que essa função foi chamada caso não tenha encontrado erro
 }
-
-function checkPessoaInArray(req, res, next) { // Middleware que checa se há algum dado no index indicado
+// Checa se há algum dado no index indicado
+function checkPessoaInArray(req, res, next, pessoas) { 
+    if(isNaN(req.params.index) === true){ // Checando se o indice não é um numero, se não for retorna erro
+        return res.status(404).json({ error: 'Indice buscado nao eh um numero'});
+    }
     const pessoa = pessoas[req.params.index]; // A pessoa a ser checada será indicada pelo index enviado por parametro na respectiva ação
     if (!pessoa) {
-        return res.status(400).json({ error: 'Pessoa nao encontrada no array' });
+        return res.status(404).json({ error: 'Pessoa nao encontrada no array' });
     }// checa se a pessoa existe no array, caso negativo informa que o index não existe no array
 
     return next(); // Continua na rota em que essa função foi chamada caso não tenha encontrado erro
 }
 
-server.listen("3000", () => console.log("Server Funcionando!"));
+server.listen("3000", () => console.log("Server listening in port 3000"));
