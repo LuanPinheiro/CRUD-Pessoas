@@ -1,7 +1,7 @@
 {
   "name": "crudmysql",
   "version": "1.0.0",
-  "main": "operacoesBD.js",
+  "main": "routes.js",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
