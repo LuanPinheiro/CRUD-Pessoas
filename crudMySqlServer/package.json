@@ -1,0 +1,11 @@
+{
+  "name": "crudMySqlServer",
+  "version": "1.0.0",
+  "main": "routes.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.28.0"
+  }
+}

@@ -5,3 +5,5 @@ const sequelize = new Sequelize('crud', 'root', '', {
 }) // nome, usuário, senha e options
 
 module.exports = sequelize;
+
+// Criando um database do 0

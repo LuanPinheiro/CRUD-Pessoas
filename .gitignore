@@ -1,2 +1,3 @@
 /crud/node_modules/*
-/crudMySql/node_modules/*
+/crudMySqlORM/node_modules/*
+/crudMySqlServer/node_modules/*
