@@ -14,7 +14,8 @@ const Pessoas = database.define('pessoas', {
     },
     idade: Sequelize.INTEGER,
     cpf: Sequelize.STRING(11),
-    estaTrabalhando: Sequelize.BOOLEAN
+    estaTrabalhando: Sequelize.BOOLEAN,
+    imagemPessoa: Sequelize.STRING
 }) // Definindo um modelo de tabela, com cada campo a ser preenchido
 
 module.exports = Pessoas; // Exportando o modelo de uma tabela
