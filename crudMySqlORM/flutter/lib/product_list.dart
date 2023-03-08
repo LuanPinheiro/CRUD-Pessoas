@@ -84,7 +84,7 @@ class _ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('NodeJs-Flutter CRUD'),
+        title: Text("Lista de Pessoas"),
         elevation: 0
       ),
       backgroundColor: Colors.grey,

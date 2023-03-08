@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:snippet_coder_utils/FormHelper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:untitled/product_add_edit.dart';
 import 'package:untitled/product_list.dart';
 
@@ -14,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Node CRUD',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
       ),
       routes: {
         '/': (context) => const ProductList(),
@@ -24,4 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

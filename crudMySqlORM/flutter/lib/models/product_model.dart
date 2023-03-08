@@ -1,12 +1,12 @@
 class ProductModel {
-  late String nome;
+  late String? nome;
   late int? idade;
   late String? cpf;
   late bool? estaTrabalhando;
   late String? imagemPessoa;
 
   ProductModel({
-    required this.nome, this.idade, this.cpf, this.estaTrabalhando, this.imagemPessoa});
+    this.nome, this.idade, this.cpf, this.estaTrabalhando, this.imagemPessoa});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     nome = json["nome"];
