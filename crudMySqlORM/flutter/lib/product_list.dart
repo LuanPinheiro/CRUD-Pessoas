@@ -45,7 +45,7 @@ class _ProductListState extends State<ProductList> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               ElevatedButton(
-                // Definindo visualmente o botão e sua posição
+                // Botão de adicionar pessoa
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.green,
@@ -58,7 +58,7 @@ class _ProductListState extends State<ProductList> {
                   ),
                 ),
                 onPressed: () {
-                  // Ações quando o botão é pressionado
+                  Navigator.pushNamed(context, "/add-product");
                 },
                 child: const Text("Adicionar Pessoa"),
               ),
