@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:untitled/models/product_model.dart';
 import 'package:untitled/product_item.dart';
+import 'package:untitled/api_service.dart';
+import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 // Widget de listagem de todos os produtos
 class ProductList extends StatefulWidget {
@@ -12,25 +14,26 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
   List<ProductModel> products = List<ProductModel>.empty(growable: true);
+  bool isApiCallProcess = false;
 
   @override
   void initState() {
     super.initState();
 
-    products.add(
-      ProductModel(
-        nome: "Teste",
-        cpf: "1234567890",
-        imagemPessoa: "https://pwco.com.sg/wp-content/uploads/2020/05/Generic-Profile-Placeholder-v3-1536x1536.png"
-      )
-    );
-    products.add(
-        ProductModel(
-            nome: "Teste2",
-            cpf: "1234567890",
-            imagemPessoa: "https://pwco.com.sg/wp-content/uploads/2020/05/Generic-Profile-Placeholder-v3-1536x1536.png"
-        )
-    );
+    // products.add(
+    //   ProductModel(
+    //     nome: "Teste",
+    //     cpf: "1234567890",
+    //     imagemPessoa: "https://pwco.com.sg/wp-content/uploads/2020/05/Generic-Profile-Placeholder-v3-1536x1536.png"
+    //   )
+    // );
+    // products.add(
+    //     ProductModel(
+    //         nome: "Teste2",
+    //         cpf: "1234567890",
+    //         imagemPessoa: "https://pwco.com.sg/wp-content/uploads/2020/05/Generic-Profile-Placeholder-v3-1536x1536.png"
+    //     )
+    // );
     // Adicionando 2 objetos teste na lista
   } // Chamada quando o widget é criado pela primeira vez
 
@@ -88,7 +91,30 @@ class _ProductListState extends State<ProductList> {
         elevation: 0
       ),
       backgroundColor: Colors.grey,
-      body: productList(products),
+      body: ProgressHUD(
+        child: loadProducts(),
+        inAsyncCall: isApiCallProcess,
+        opacity: 0.3,
+        key: UniqueKey(),
+      ),
+    );
+  }
+
+  Widget loadProducts() {
+    return FutureBuilder(
+      future: APIService.getProducts(),
+      builder: (
+          BuildContext context,
+          AsyncSnapshot<List<ProductModel>?> model,
+          ) {
+        if (model.hasData) {
+          return productList(model.data);
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

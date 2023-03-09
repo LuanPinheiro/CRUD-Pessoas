@@ -47,6 +47,16 @@ class _ProductAddEditState extends State<ProductAddEdit> {
   void initState(){
     super.initState();
     productModel = ProductModel();
+
+    Future.delayed(Duration.zero, () {
+      if(ModalRoute.of(context)?.settings.arguments != null){
+        final Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+
+        productModel = arguments["model"];
+        isEditMode = true;
+        setState(() {});
+      }
+    });
   }
 
   Widget pessoaForm() {
@@ -68,7 +78,10 @@ class _ProductAddEditState extends State<ProductAddEdit> {
                 }
                 return null;
               },
-              (onSavedVal) {},
+              (onSavedVal) => {
+                productModel!.nome = onSavedVal,
+              },
+              initialValue: productModel!.nome == null ? "" : productModel!.nome.toString(),
               // Abaixo configurações das cores do formulário
               borderColor: Colors.black,
               borderFocusColor: Colors.black,
@@ -88,7 +101,10 @@ class _ProductAddEditState extends State<ProductAddEdit> {
                 }
                 return null;
               },
-              (onSavedVal) {},
+              (onSavedVal) {
+                productModel!.cpf = onSavedVal;
+              },
+              initialValue: productModel!.cpf == null ? "" : productModel!.cpf.toString(),
               // Abaixo configurações das cores do formulário
               borderColor: Colors.black,
               borderFocusColor: Colors.black,
@@ -101,7 +117,11 @@ class _ProductAddEditState extends State<ProductAddEdit> {
             height: 20,
           ),
           Center(
-            child: FormHelper.submitButton("Salvar", () {},
+            child: FormHelper.submitButton("Salvar", () {
+              if(validateAndSave()){
+                // API Service
+              }
+            },
             btnColor: Colors.red,),
           )
         ]
@@ -109,6 +129,15 @@ class _ProductAddEditState extends State<ProductAddEdit> {
     );
   }
 
+  bool validateAndSave() {
+    final form = globalKey.currentState;
+    if(form!.validate()){
+      form.save();
+      return true;
+    }
+
+    return false;
+  }
   static Widget picPicker(bool isFileSelected, String fileName, Function onFilePicked) {
     Future<XFile?> _imageFile;
     ImagePicker _picker = ImagePicker();

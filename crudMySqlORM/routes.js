@@ -5,6 +5,10 @@ const server = express();
 
 server.use(express.json()); // faz com que o express entenda JSON
 
+server.get("/", async(req, res) => {
+    return json.status(200);
+})
+
 // Rota de criação de tabela
 server.get("/create", async(req, res) => {
     await operacoes.criarTabela();

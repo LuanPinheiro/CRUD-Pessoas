@@ -73,7 +73,11 @@ class ProductItem extends StatelessWidget {
                     GestureDetector(
                       // Criando um botão de editar pessoa, no container da mesma
                       child: const Icon(Icons.edit),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/edit-product', arguments: {
+                          'model': model
+                        });
+                      },
                     ),
                     GestureDetector(
                       // Criando um botão de deletar pessoa, no container da mesma

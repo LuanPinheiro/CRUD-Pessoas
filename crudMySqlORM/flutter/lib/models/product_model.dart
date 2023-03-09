@@ -1,4 +1,8 @@
+List<ProductModel> productsFromJson(dynamic str) =>
+    List<ProductModel>.from((str).map((x) => ProductModel.fromJson(x)));
+
 class ProductModel {
+  late int? id;
   late String? nome;
   late int? idade;
   late String? cpf;
