@@ -2,15 +2,18 @@ List<ProductModel> productsFromJson(dynamic str) =>
     List<ProductModel>.from((str).map((x) => ProductModel.fromJson(x)));
 
 class ProductModel {
-  late int? id;
   late String? nome;
-  late int? idade;
+  late String? idade;
   late String? cpf;
-  late bool? estaTrabalhando;
+  late String? estaTrabalhando;
   late String? imagemPessoa;
 
   ProductModel({
-    this.nome, this.idade, this.cpf, this.estaTrabalhando, this.imagemPessoa});
+    this.nome,
+    this.idade,
+    this.cpf,
+    this.estaTrabalhando,
+    this.imagemPessoa});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     nome = json["nome"];

@@ -3,17 +3,13 @@ const database = require('./database');
 
 const Pessoas = database.define('pessoas', {
     id: {
-        type: Sequelize.INTEGER, // Tipo do campo usa o modulo requerido, é a única obrigatória a se preencher
+        type: Sequelize.INTEGER,
+        primaryKey: true,
         autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
     },
-    nome: {
-        type: Sequelize.STRING(100),
-        allowNull: false
-    },
-    idade: Sequelize.INTEGER,
-    cpf: Sequelize.STRING(11),
+    nome: Sequelize.STRING,
+    idade: Sequelize.STRING,
+    cpf: Sequelize.STRING,
     estaTrabalhando: Sequelize.BOOLEAN,
     imagemPessoa: Sequelize.STRING
 }) // Definindo um modelo de tabela, com cada campo a ser preenchido

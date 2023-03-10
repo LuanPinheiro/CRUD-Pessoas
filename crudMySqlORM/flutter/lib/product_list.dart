@@ -13,13 +13,12 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-  List<ProductModel> products = List<ProductModel>.empty(growable: true);
+  //List<ProductModel> products = List<ProductModel>.empty(growable: true);
   bool isApiCallProcess = false;
 
   @override
   void initState() {
     super.initState();
-
     // products.add(
     //   ProductModel(
     //     nome: "Teste",
@@ -84,37 +83,38 @@ class _ProductListState extends State<ProductList> {
     );
   }
 
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Lista de Pessoas"),
-        elevation: 0
-      ),
-      backgroundColor: Colors.grey,
-      body: ProgressHUD(
-        child: loadProducts(),
-        inAsyncCall: isApiCallProcess,
-        opacity: 0.3,
-        key: UniqueKey(),
-      ),
-    );
-  }
-
   Widget loadProducts() {
     return FutureBuilder(
       future: APIService.getProducts(),
       builder: (
           BuildContext context,
-          AsyncSnapshot<List<ProductModel>?> model,
-          ) {
-        if (model.hasData) {
-          return productList(model.data);
+          AsyncSnapshot<List<ProductModel>?> products,
+      ) {
+        if (products.hasData) {
+          return productList(products.data);
         }
 
         return const Center(
           child: CircularProgressIndicator(),
         );
       },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Lista de Pessoas"),
+          elevation: 0
+      ),
+      backgroundColor: Colors.grey,
+      body: ProgressHUD(
+        inAsyncCall: isApiCallProcess,
+        opacity: 0.3,
+        key: UniqueKey(),
+        child: loadProducts(),
+      ),
     );
   }
 }

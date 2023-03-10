@@ -7,6 +7,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,9 +16,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.pink,
       ),
       routes: {
-        '/': (context) => const ProductList(),
-        '/add-product': (context) => const ProductAddEdit(),
-        '/edit-product': (context) => const ProductAddEdit(),
+        '/': (context) => const ProductList(), // Página Inicial
+        '/add-product': (context) => const ProductAddEdit(), // Botão de Adicionar Pessoa na Home
+        '/edit-product': (context) => const ProductAddEdit(), // Edição de Pessoa na Home, individual em cada Card
       },
     );
   }
