@@ -15,10 +15,13 @@ class APIService {
     var url = Uri.http(Config.apiURL, Config.productURL);
 
     var response = await client.get(url, headers: requestHeaders);
+    print(response.statusCode);
 
     if(response.statusCode == 200){
+      print("ola");
+      print(response.body);
       var data = jsonDecode(response.body);
-      
+      print("oi");
       return productsFromJson(data["data"]);
     }
     else{

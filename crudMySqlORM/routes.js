@@ -22,7 +22,10 @@ server.get("/create", async(req, res) => {
 server.get("/pessoas", async(req, res) => {
     if(dadosBD){
         dadosBD = await operacoes.selecionarTabela();
-        return res.json(dadosBD);
+        return res.status(200).send({
+            message: "Success",
+            data: dadosBD
+        });
     }
     else{
         return res.send(`<h1>Por favor inicie o banco na rota /create</h1>`);
