@@ -5,7 +5,7 @@ class ProductModel {
   late String? nome;
   late String? idade;
   late String? cpf;
-  late String? estaTrabalhando;
+  late bool? estaTrabalhando;
   late String? imagemPessoa;
 
   ProductModel({

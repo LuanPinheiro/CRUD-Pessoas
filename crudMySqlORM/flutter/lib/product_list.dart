@@ -88,11 +88,12 @@ class _ProductListState extends State<ProductList> {
       future: APIService.getProducts(),
       builder: (
           BuildContext context,
-          AsyncSnapshot<List<ProductModel>?> products,
+          AsyncSnapshot <List<ProductModel>?> products,
       ) {
         if (products.hasData) {
           return productList(products.data);
         }
+
 
         return const Center(
           child: CircularProgressIndicator(),
